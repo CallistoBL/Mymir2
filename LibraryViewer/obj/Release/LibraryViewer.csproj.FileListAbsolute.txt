@@ -1,0 +1,9 @@
+C:\Code\Viewer\CMirLibraryViewer.exe.config
+C:\Code\Viewer\CMirLibraryViewer.exe
+C:\Code\Viewer\CMirLibraryViewer.pdb
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\LibraryViewer.LMain.resources
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\LibraryViewer.LoadSettings.resources
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.Properties.Resources.resources
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\LibraryViewer.csproj.GenerateResource.Cache
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.exe
+C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.pdb

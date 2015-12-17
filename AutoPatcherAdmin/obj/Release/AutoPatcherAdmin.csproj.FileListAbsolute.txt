@@ -1,0 +1,9 @@
+C:\Code\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.exe.config
+C:\Code\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.exe
+C:\Code\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.pdb
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.csprojResolveAssemblyReference.cache
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.AMain.resources
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.Properties.Resources.resources
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.csproj.GenerateResource.Cache
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.exe
+C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.pdb

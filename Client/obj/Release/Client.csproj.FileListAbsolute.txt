@@ -1,0 +1,9 @@
+C:\Code\Client\Client.exe.config
+C:\Code\Client\Client.exe
+C:\Code\1.1.0.1\Client\obj\Release\Launcher.AMain.resources
+C:\Code\1.1.0.1\Client\obj\Release\Client.CMain.resources
+C:\Code\1.1.0.1\Client\obj\Release\Launcher.Config.resources
+C:\Code\1.1.0.1\Client\obj\Release\Client.Properties.Resources.resources
+C:\Code\1.1.0.1\Client\obj\Release\Client.csproj.GenerateResource.Cache
+C:\Code\1.1.0.1\Client\obj\Release\Client.exe
+C:\Code\1.1.0.1\Client\obj\Release\Client.csprojResolveAssemblyReference.cache

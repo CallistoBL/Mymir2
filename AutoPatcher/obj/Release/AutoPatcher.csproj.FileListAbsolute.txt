@@ -1,0 +1,8 @@
+C:\Code\AutoPatcher\AutoPatcher.exe.config
+C:\Code\AutoPatcher\AutoPatcher.exe
+C:\Code\AutoPatcher\AutoPatcher.pdb
+C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.AMain.resources
+C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.Properties.Resources.resources
+C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.csproj.GenerateResource.Cache
+C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.exe
+C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.pdb

@@ -1,0 +1,11 @@
+C:\Code\Client\Client.exe.config
+C:\Code\Client\Client.exe
+C:\Code\Client\Client.pdb
+C:\Code\1.1.0.1\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Code\1.1.0.1\Client\obj\Debug\Launcher.AMain.resources
+C:\Code\1.1.0.1\Client\obj\Debug\Client.CMain.resources
+C:\Code\1.1.0.1\Client\obj\Debug\Launcher.Config.resources
+C:\Code\1.1.0.1\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Code\1.1.0.1\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+C:\Code\1.1.0.1\Client\obj\Debug\Client.exe
+C:\Code\1.1.0.1\Client\obj\Debug\Client.pdb

@@ -7,3 +7,12 @@ C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.Properties.Resources
 C:\Code\1.1.0.1\LibraryViewer\obj\Release\LibraryViewer.csproj.GenerateResource.Cache
 C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.exe
 C:\Code\1.1.0.1\LibraryViewer\obj\Release\CMirLibraryViewer.pdb
+C:\GithubMirCode\Viewer\CMirLibraryViewer.exe.config
+C:\GithubMirCode\Viewer\CMirLibraryViewer.exe
+C:\GithubMirCode\Viewer\CMirLibraryViewer.pdb
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\LibraryViewer.LMain.resources
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\LibraryViewer.LoadSettings.resources
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\CMirLibraryViewer.Properties.Resources.resources
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\LibraryViewer.csproj.GenerateResource.Cache
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\CMirLibraryViewer.exe
+C:\GithubMirCode\Mymir2\LibraryViewer\obj\Release\CMirLibraryViewer.pdb

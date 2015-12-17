@@ -6,3 +6,11 @@ C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.Properties.Resources.resourc
 C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.csproj.GenerateResource.Cache
 C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.exe
 C:\Code\1.1.0.1\AutoPatcher\obj\Release\AutoPatcher.pdb
+C:\GithubMirCode\AutoPatcher\AutoPatcher.exe.config
+C:\GithubMirCode\AutoPatcher\AutoPatcher.exe
+C:\GithubMirCode\AutoPatcher\AutoPatcher.pdb
+C:\GithubMirCode\Mymir2\AutoPatcher\obj\Release\AutoPatcher.AMain.resources
+C:\GithubMirCode\Mymir2\AutoPatcher\obj\Release\AutoPatcher.Properties.Resources.resources
+C:\GithubMirCode\Mymir2\AutoPatcher\obj\Release\AutoPatcher.csproj.GenerateResource.Cache
+C:\GithubMirCode\Mymir2\AutoPatcher\obj\Release\AutoPatcher.exe
+C:\GithubMirCode\Mymir2\AutoPatcher\obj\Release\AutoPatcher.pdb

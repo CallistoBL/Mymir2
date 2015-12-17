@@ -1621,6 +1621,10 @@ namespace Server.MirNetwork
                 image.Save("Reported-" + Player.Name + "-" + DateTime.Now.ToString("yyMMddHHmmss") + ".jpg");
                 Image.Clear();
             }
+            else
+            { 
+                return;
+            }
         }
     }
 }

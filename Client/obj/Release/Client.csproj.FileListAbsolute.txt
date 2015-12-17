@@ -7,3 +7,12 @@ C:\Code\1.1.0.1\Client\obj\Release\Client.Properties.Resources.resources
 C:\Code\1.1.0.1\Client\obj\Release\Client.csproj.GenerateResource.Cache
 C:\Code\1.1.0.1\Client\obj\Release\Client.exe
 C:\Code\1.1.0.1\Client\obj\Release\Client.csprojResolveAssemblyReference.cache
+C:\GithubMirCode\Mymir2\Client\obj\Release\Client.csprojResolveAssemblyReference.cache
+C:\GithubMirCode\Mymir2\Client\obj\Release\Launcher.AMain.resources
+C:\GithubMirCode\Mymir2\Client\obj\Release\Client.CMain.resources
+C:\GithubMirCode\Mymir2\Client\obj\Release\Launcher.Config.resources
+C:\GithubMirCode\Mymir2\Client\obj\Release\Client.Properties.Resources.resources
+C:\GithubMirCode\Mymir2\Client\obj\Release\Client.csproj.GenerateResource.Cache
+C:\GithubMirCode\Mymir2\Client\obj\Release\Client.exe
+C:\GithubMirCode\Client\Client.exe.config
+C:\GithubMirCode\Client\Client.exe

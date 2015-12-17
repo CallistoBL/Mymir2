@@ -366,7 +366,7 @@ namespace Client.MirObjects
                     Frames = FrameSet.Monsters[25];
                     break;
                 case Monster.BombSpider:
-                case Monster.MutatedHugger:
+                //case Monster.MutatedHugger:
                     Frames = FrameSet.Monsters[26];
                     break;
                 case Monster.CrossbowOma:
@@ -1273,9 +1273,6 @@ namespace Client.MirObjects
                             case Monster.MinotaurKing:
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.MinotaurKing], 272 + (int)Direction * 6, 6, Frame.Count * Frame.Interval, this));
                                 break;
-                            case Monster.FlamingMutant:///////////////////////////stupple 
-                                Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlamingMutant], 304 + (int)Direction * 6, 6, Frame.Count * Frame.Interval, this));
-                                break;
                             case Monster.Demonwolf:
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Demonwolf], 312 + (int)Direction * 3, 3, Frame.Count * Frame.Interval, this));
                                 break;
@@ -1341,19 +1338,16 @@ namespace Client.MirObjects
                                     MapControl.Effects.Add(new Effect(Libraries.Dragon, 230 + (CMain.Random.Next(5) * 10), 5, 400, source, CMain.Time + CMain.Random.Next(1000)));
                                 }
                                 break;
-                            case Monster.StoningStatue:
-                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.StoningStatue], 624, 8, 8 * 100, User));
-                                break;
-                            case Monster.CrawlerLave:
+                            case Monster.CrawlerLave://callisto
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.CrawlerLave], 224 + (int)Direction * 6, 6, Frame.Count * Frame.Interval, this));
                                 break;
-                            case Monster.HellKeeper:
+                            case Monster.HellKeeper://callisto
                                 User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.HellKeeper], 32, 8, 8 * Frame.Interval, User));
                                 break;
-                            case Monster.PoisonHugger:
+                            case Monster.PoisonHugger://callisto
                                 User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.PoisonHugger], 224, 5, 5 * Frame.Interval, User, 500, false));
                                 break;
-                            case Monster.DreamDevourer:
+                            case Monster.DreamDevourer://callisto
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.DreamDevourer], 320 + (int)Direction * 5, 5, Frame.Count * Frame.Interval, this));
                                 break;
                         }
@@ -1369,6 +1363,10 @@ namespace Client.MirObjects
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Yimoogi], 304, 6, Frame.Count * Frame.Interval, this));
                                 Effects.Add(new Effect(Libraries.Magic2, 1280, 10, Frame.Count * Frame.Interval, this));
                                 break;
+                            case Monster.FlamingMutant:
+                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlamingMutant], 320, 10, Frame.Count * Frame.Interval, User));
+                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlamingMutant], 330, 10, 4000, User));
+                                break;
                         }
 
                         if ((ushort)BaseImage >= 10000)
@@ -1376,6 +1374,9 @@ namespace Client.MirObjects
                             PlayPetSound();
                         }
                         break;
+
+
+
                     case MirAction.Attack3:
                         //PlaySecondAttackSound();
                         switch (BaseImage)
@@ -1419,23 +1420,22 @@ namespace Client.MirObjects
                             case Monster.DragonStatue:
                                 Effects.Add(new Effect(Libraries.Dragon, 310 + ((int)Direction / 3) * 20, 10, 10 * Frame.Interval, this));
                                 break;
-                            case Monster.StoningStatue:
-                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.StoningStatue], 642, 25, 25 * 100, User));
-                                break;
-                            
-                            case Monster.TurtleKing:
+
+
+                            case Monster.TurtleKing://callisto
                                 User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.TurtleKing], 922, 12, Frame.Count * Frame.Interval, User));
                                 break;
-                            case Monster.FlyingStatue:
+                            case Monster.FlyingStatue://callisto
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlyingStatue], 314, 6, 6 * Frame.Interval, this));
                                 //Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlyingStatue], 329, 5, 5 * Frame.Interval, this)); this should follow the projectile
                                 break;
-                            case Monster.HellBolt:
+                            case Monster.HellBolt://callisto
                                 User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.HellBolt], 315, 10, 10 * 100, User));
                                 break;
-                            case Monster.Behemoth:
+                            case Monster.Behemoth://callisto
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 768, 10, 10 * 100, this));
                                 break;
+
                         }
                         TargetID = (uint)action.Params[0];
                         break;
@@ -1520,10 +1520,12 @@ namespace Client.MirObjects
                             case Monster.VenomWeaver:
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.VenomWeaver], 224, 6, Frame.Count * Frame.Interval, this));
                                 break;
-                            case Monster.HellBolt:
+                            case Monster.HellBolt://callisto
                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.HellBolt], 325, 10, Frame.Count * Frame.Interval, this));
                                 break;
-
+                            case Monster.FlamingMutant: //callsito
+                                Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.FlamingMutant], 304, 10, Frame.Count * Frame.Interval, this));
+                                break;
                             case Monster.SabukGate:
                                 Effects.Add(new Effect(Libraries.Effect, 136, 7, Frame.Count * Frame.Interval, this) { Light = -1 });
                                 break;
@@ -1745,7 +1747,7 @@ namespace Client.MirObjects
                                         PlaySwingSound();
                                         switch (BaseImage)
                                         {
-                                            case Monster.WingedTigerLord:
+                                            case Monster.WingedTigerLord://callisto
                                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.WingedTigerLord], 456 + (int)Direction * 6, 6, 6 * Frame.Interval, this));
                                                 break;
                                         }
@@ -1770,8 +1772,12 @@ namespace Client.MirObjects
                                         PlaySwingSound();
                                         switch (BaseImage)
                                         {
-                                            case Monster.Behemoth:
+                                            case Monster.Behemoth://callisto
                                                 Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 667 + (int)Direction * 2, 2, 200, this));
+                                                break;
+                                            case Monster.StoningStatue://callisto
+                                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.StoningStatue], 624, 8, Frame.Count * Frame.Interval, User));
+                                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.StoningStatue], 632, 10, 5000, User));
                                                 break;
                                         }
                                         break;
@@ -1822,13 +1828,13 @@ namespace Client.MirObjects
                                             Effects.Add(new TrackableEffect(new Effect(Libraries.Pets[((ushort)BaseImage) - 10000], 208, 11, 1500, this), "SnowmanSnow"));
                                     }
                                     break;
-                                case Monster.WingedTigerLord:
+                                case Monster.WingedTigerLord://callisto
                                     if (FrameIndex == 4)
                                     {
                                         Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.WingedTigerLord], 432 + (int)Direction * 3, 3, 3 * Frame.Interval, this));
                                     }
                                     break;
-                                case Monster.Behemoth:
+                                case Monster.Behemoth://callisto
                                     if (FrameIndex ==  4)
                                     {
                                     User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 688, 9, 9 * 100, User));
@@ -1868,13 +1874,13 @@ namespace Client.MirObjects
                                             Effects.Add(new TrackableEffect(new Effect(Libraries.Pets[((ushort)BaseImage) - 10000], 256, 3, 1000, this), "CreatureSmoke"));
                                     }
                                     break;
-                                case Monster.WingedTigerLord:
+                                case Monster.WingedTigerLord://callisto
                                     if (FrameIndex == 4)
                                     {
                                         User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.WingedTigerLord], 504, 8, 8 * Frame.Interval, User));
                                     }
                                     break;
-                                case Monster.Behemoth:
+                                case Monster.Behemoth://callisto
                                     if (FrameIndex == 4)
                                     {
                                         Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 697 + (int)Direction * 7, 7, 300, this));
@@ -1901,7 +1907,7 @@ namespace Client.MirObjects
                         {
                             switch (BaseImage)
                             {
-                                case Monster.WingedTigerLord:
+                                case Monster.WingedTigerLord://callisto
                                     if (FrameIndex == 4)
                                     {
                                         User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.WingedTigerLord], 512, 10, 10* Frame.Interval, User));
@@ -2120,7 +2126,7 @@ namespace Client.MirObjects
                                                 if (MapControl.GetObject(TargetID) != null)
                                                     CreateProjectile(280, Libraries.Monsters[(ushort)Monster.SpittingToad], true, 6, 30, 0);
                                                 break;
-                                            case Monster.DarkDevourer:
+                                            case Monster.DarkDevourer://callisto corrected
                                                 ob = MapControl.GetObject(TargetID);
                                                 if (ob != null)
                                                 {
@@ -2128,15 +2134,25 @@ namespace Client.MirObjects
                                                     //SoundManager.PlaySound(BaseSound + 6); //is this the correct sound for this mob attack?
                                                 }
                                                 break;
-                                            case Monster.Behemoth:
+                                            case Monster.Behemoth://callisto
                                                 if (FrameIndex == 4)
                                                 {
                                                     User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 753, 10, 600, User));
                                                 }
                                                 break;
-                                            case Monster.FinialTurtle:
+                                            case Monster.FinialTurtle://callisto
                                                 if (MapControl.GetObject(TargetID) != null)
                                                     CreateProjectile(410, Libraries.Magic2, true, 4, 30, 6);
+                                                break;
+                                        }
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        switch (BaseImage)
+                                        {
+                                            case Monster.StoningStatue:
+                                                User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.StoningStatue], 642, 20, Frame.Count * Frame.Interval, User));
                                                 break;
                                         }
                                         break;
@@ -2189,7 +2205,7 @@ namespace Client.MirObjects
                                                     };
                                                 }
                                                 break;
-                                            case Monster.Behemoth:
+                                            case Monster.Behemoth://callisto
                                                 User.Effects.Add(new Effect(Libraries.Monsters[(ushort)Monster.Behemoth], 778, 10, Frame.Count * Frame.Interval, User));
                                                 break;
                                         }
@@ -2978,7 +2994,7 @@ namespace Client.MirObjects
                             break;
                     }
                     break;
-                case Monster.CyanoGhast: //mob glow effect
+                case Monster.CyanoGhast: //Callisto Corrected Frame numbers
                     switch (CurrentAction)
                     {
                         case MirAction.Standing:
@@ -3016,7 +3032,7 @@ namespace Client.MirObjects
                     }
                     break;
 
-                case Monster.DarkDevourer:
+                case Monster.DarkDevourer://callisto
                     switch (CurrentAction)
                     {
                         case MirAction.Standing:
@@ -3095,7 +3111,7 @@ namespace Client.MirObjects
                     }
                     break;
 
-                case Monster.WingedTigerLord:
+                case Monster.WingedTigerLord://callisto
                     switch (CurrentAction)
                     {
                         case MirAction.Die:
@@ -3103,8 +3119,8 @@ namespace Client.MirObjects
                             break;
                     }
                     break;
-
             }
+
 
 
         }

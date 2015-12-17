@@ -861,6 +861,7 @@ namespace Server.MirEnvir
             }
             catch (Exception ex)
             {
+                return;
             }
         }
 
@@ -926,6 +927,7 @@ namespace Server.MirEnvir
             }
             catch (Exception ex)
             {
+                return;
             }
 
         }
@@ -975,6 +977,7 @@ namespace Server.MirEnvir
             }
             catch (Exception ex)
             {
+                return;
             }
 
             Saving = false;

@@ -23,10 +23,10 @@ namespace Server.MirObjects.Monsters
             int x = Math.Abs(Target.CurrentLocation.X - CurrentLocation.X);
             int y = Math.Abs(Target.CurrentLocation.Y - CurrentLocation.Y);
 
-            if (x > 2 || y > 2) return false;
+            if (x > 5 || y > 5) return false;
 
 
-            return (x <= 1 && y <= 1) || (x == y || x % 2 == y % 2);
+            return (x <= 1 && y <= 1) || (x == y || x % 5 == y % 5);
         }
 
         protected override void Attack()
@@ -47,17 +47,31 @@ namespace Server.MirObjects.Monsters
 
             if (!ranged)
             {
-                ActionTime = Envir.Time + 300;
-                AttackTime = Envir.Time + AttackSpeed;
+                if (Envir.Random.Next(6) > 0)
+                {
+                    int damage = GetAttackPower(MinDC, MaxDC);             
+                    if (damage == 0) return;
 
-                Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
-                Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
-                LineAttack(2);
+                    Target.Attacked(this, damage, DefenceType.ACAgility);
+
+                    ShockTime = 0;
+                    ActionTime = Envir.Time + 300;
+                    AttackTime = Envir.Time + AttackSpeed;
+
+                    Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
+                    Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, Type = 1 });
+
+                }
+                else
+                {
+                    Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation});
+                    Attack2();
+                }
 
             }
             else
             {
-                if (Envir.Random.Next(5) == 0)
+                if (Envir.Random.Next(2) == 0)
                 {
                     Broadcast(new S.ObjectRangeAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, TargetID = Target.ObjectID });
 
@@ -66,7 +80,7 @@ namespace Server.MirObjects.Monsters
 
                     int damage = GetAttackPower(MinMC, MaxMC);
                     if (damage == 0) return;
-
+                    Target.Attacked(this, damage, DefenceType.MACAgility);
                     int delay = Functions.MaxDistance(CurrentLocation, Target.CurrentLocation) * 50 + 500; //50 MS per Step
 
                     DelayedAction action = new DelayedAction(DelayedType.Damage, Envir.Time + delay, Target, damage, DefenceType.MACAgility);
@@ -83,49 +97,20 @@ namespace Server.MirObjects.Monsters
                 FindTarget();
 
         }
-        private void LineAttack(int distance)
+       
+        private void Attack2()
         {
-
             int damage = GetAttackPower(MinDC, MaxDC);
             if (damage == 0) return;
-            
-            int delay = Functions.MaxDistance(CurrentLocation, Target.CurrentLocation) * 50 + 500;
 
-            for (int i = 1; i <= distance; i++)
-            {
-                Point target = Functions.PointMove(CurrentLocation, Direction, i);
+            Target.Attacked(this, damage, DefenceType.ACAgility);
 
-                if (target == Target.CurrentLocation)
-                {
-                    Target.Attacked(this, damage, DefenceType.ACAgility);
-                }
-                else
-                {
-                    if (!CurrentMap.ValidPoint(target)) continue;
+            ShockTime = 0;
+            ActionTime = Envir.Time + 300;
+            AttackTime = Envir.Time + AttackSpeed;
 
-                    Cell cell = CurrentMap.GetCell(target);
-                    if (cell.Objects == null) continue;
-
-                    for (int o = 0; o < cell.Objects.Count; o++)
-                    {
-                        MapObject ob = cell.Objects[o];
-                        if (ob.Race == ObjectType.Monster || ob.Race == ObjectType.Player)
-                        {
-                            if (!ob.IsAttackTarget(this)) continue;
-
-                            ob.Attacked(this, damage, DefenceType.ACAgility);
-                        }
-                        else continue;
-
-                        break;
-                    }
-
-                }
-            }
+            Target.ApplyPoison(new Poison { Owner = this, Duration = 5, PType = PoisonType.Stun, TickSpeed = 1000, }, this);
         }
-
-
-
 
         protected override void ProcessTarget()
         {

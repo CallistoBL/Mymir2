@@ -7,12 +7,3 @@ C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.Properties.Resourc
 C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.csproj.GenerateResource.Cache
 C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.exe
 C:\Code\1.1.0.1\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.pdb
-C:\GithubMirCode\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.exe.config
-C:\GithubMirCode\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.exe
-C:\GithubMirCode\AutoPatcher\AutoPatcherAdmin\AutoPatcherAdmin.pdb
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.csprojResolveAssemblyReference.cache
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.AMain.resources
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.Properties.Resources.resources
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.csproj.GenerateResource.Cache
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.exe
-C:\GithubMirCode\Mymir2\AutoPatcherAdmin\obj\Release\AutoPatcherAdmin.pdb

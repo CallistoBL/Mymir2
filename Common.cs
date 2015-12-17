@@ -324,6 +324,7 @@ public enum Monster : ushort
     DarkDustPile = 147,
     DarkBrownWolf = 148,
     Football = 149,
+    //callisto checked from here down
     GingerBreadman = 150,
     HalloweenScythe = 151,
     GhastlyLeecher = 152,
@@ -332,12 +333,11 @@ public enum Monster : ushort
     CrazyManworm = 155,
     MudPile = 156,
     TailedLion = 157,
-
     Behemoth = 158,
     DarkDevourer = 159,
     PoisonHugger = 160, 
     Hugger = 161,
-    MutatedHugger = 162,
+    //MutatedHugger = 162,  //Callisto this mob has same looks and moves as hugger no point in having 2 of them 
     DreamDevourer = 163,
     Treasurebox = 164,
     SnowPile = 165,
@@ -351,18 +351,18 @@ public enum Monster : ushort
     SabukWallSection = 173, //not added frames
     NammandWallSection = 174, //not added frames
     //BLANK_175 = 175,
-    BlueSanta = 176,//FRAMES BROKE
+    BlueSanta = 176,//callisto fixed
     BattleStandard = 177,
-    ArcherGuard2 = 178, //NO FRAMES
+    ArcherGuard2 = 178, //callisto fixed new lib needed (far has)
     RedYimoogi = 179,
     //BLANK_180 = 180,
     //BLANK_181 = 181,
     //BLANK_182 = 182,
     FlameTiger = 183,
-    WingedTigerLord = 184,//FRAMES BROKE
+    WingedTigerLord = 184, //callisto frames redone
     TowerTurtle = 185,
     FinialTurtle = 186,
-    TurtleKing = 187,//NEEDS AI
+    TurtleKing = 187,
     DarkTurtle = 188,
     LightTurtle = 189,
     DarkSwordOma = 190,
@@ -377,6 +377,9 @@ public enum Monster : ushort
     DarkYob = 199,
 
     FlamingMutant = 200,
+
+    //callisto checked up to here
+    
     StoningStatue = 201,
     FlyingStatue = 202,
     ValeBat = 203,

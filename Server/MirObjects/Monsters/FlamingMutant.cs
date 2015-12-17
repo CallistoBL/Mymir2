@@ -6,96 +6,46 @@ using S = ServerPackets;
 
 namespace Server.MirObjects.Monsters
 {
-    public class FlamingMutant  : MonsterObject
+    public class FlamingMutant : MonsterObject
     {
-        private const byte AttackRange = 8;
-
         protected internal FlamingMutant(MonsterInfo info)
             : base(info)
         {
         }
 
-        protected override bool InAttackRange()
-        {
-            return CurrentMap == Target.CurrentMap && Functions.InRange(CurrentLocation, Target.CurrentLocation, AttackRange);
-        }
-
         protected override void Attack()
         {
-
             if (!Target.IsAttackTarget(this))
             {
                 Target = null;
                 return;
             }
 
-            ShockTime = 0;
-
-
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
-            bool ranged = CurrentLocation == Target.CurrentLocation || !Functions.InRange(CurrentLocation, Target.CurrentLocation, 1);
 
-            
-            if (!ranged)
+            if (Envir.Random.Next(10) > 0)
             {
-                ActionTime = Envir.Time + 300;
-                AttackTime = Envir.Time + AttackSpeed;
-
-                int damage = GetAttackPower(MinDC, MaxDC);
-
-                Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
-                if (damage == 0) return;
-
-                Target.Attacked(this, damage, DefenceType.ACAgility);
+                base.Attack();
             }
             else
             {
-                if (Envir.Random.Next(10) == 0)
-                {
-                    Broadcast(new S.ObjectRangeAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, TargetID = Target.ObjectID });
-
-                    ActionTime = Envir.Time + 300;
-                    AttackTime = Envir.Time + AttackSpeed;
-
-                    int damage = GetAttackPower(MinMC, MaxMC);
-                    if (damage == 0) return;
-
-                    int delay = Functions.MaxDistance(CurrentLocation, Target.CurrentLocation) * 20 + 500; //50 MS per Step
-
-                    DelayedAction action = new DelayedAction(DelayedType.Damage, Envir.Time + delay, Target, damage, DefenceType.MACAgility);
-                    ActionList.Add(action);
-                }
-                else
-                {
-                    MoveTo(Target.CurrentLocation);
-                }
-
+                Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, Type = 1 });
+                Attack2();
             }
 
-
-            if (Target.Dead)
-                FindTarget();
+            ShockTime = 0;
+            ActionTime = Envir.Time + 300;
+            AttackTime = Envir.Time + AttackSpeed;
 
         }
-
-        protected override void ProcessTarget()
+        private void Attack2()
         {
-            if (Target == null) return;
+            int damage = GetAttackPower(MinDC, MaxDC);
+            if (damage == 0) return;
 
-            if (InAttackRange() && CanAttack)
-            {
-                Attack();
-                return;
-            }
+            Target.Attacked(this, damage, DefenceType.MACAgility);
 
-            if (Envir.Time < ShockTime)
-            {
-                Target = null;
-                return;
-            }
-
-            MoveTo(Target.CurrentLocation);
-
+            Target.ApplyPoison(new Poison { PType = PoisonType.Paralysis, Duration = 5, TickSpeed = 1000 }, this);
         }
     }
 }

@@ -8726,7 +8726,21 @@ namespace Server.MirObjects
             NPCDelayed = true;
 
             if (page.Length > 0)
-                CallNPC(npcid, page);
+            {
+                if (npcid == DefaultNPC.ObjectID)
+                {
+                    DefaultNPC.Call(this, page.ToUpper());
+                }
+                else
+                {
+                    NPCObject obj = SMain.Envir.Objects.FirstOrDefault(x => x.ObjectID == npcid) as NPCObject;
+
+                    if (obj != null)
+                        obj.Call(this, page);
+                }
+
+                CallNPCNextPage();
+            }
         }
         private void CompletePoison(IList<object> data)
         {

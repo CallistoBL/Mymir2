@@ -155,7 +155,7 @@ namespace Server.MirObjects
                 case 69:
                     return new Behemoth(info);
                 //case 70:
-                   // return new DreamDevourer(info);
+                   // do not use will not allow you to hit mob unless its with magic
                 case 71:
                     return new FlameTiger(info);
                 case 72:

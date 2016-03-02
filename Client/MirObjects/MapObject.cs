@@ -8,6 +8,7 @@ using Client.MirControls;
 using Client.MirGraphics;
 using Client.MirScenes;
 using Client.MirSounds;
+using Client.MirScenes.Dialogs;
 
 namespace Client.MirObjects
 {
@@ -376,7 +377,7 @@ namespace Client.MirObjects
                     DXManager.Sprite.Draw2D(DXManager.RadarTexture, Point.Empty, 0, new PointF((int)(DisplayRectangle.X + 8 + (poisoncount * 3)), (int)(DisplayRectangle.Y - 20)), Color.Blue);
                     poisoncount++;
                 }
-                if (Poison.HasFlag(PoisonType.Paralysis))
+                if (Poison.HasFlag(PoisonType.Paralysis) || Poison.HasFlag(PoisonType.LRParalysis))
                 {
                     DXManager.Sprite.Draw2D(DXManager.PoisonDotBackground, Point.Empty, 0, new PointF((int)(DisplayRectangle.X + 7 + (poisoncount * 3)), (int)(DisplayRectangle.Y - 21)), Color.Black);
                     DXManager.Sprite.Draw2D(DXManager.RadarTexture, Point.Empty, 0, new PointF((int)(DisplayRectangle.X + 8 + (poisoncount * 3)), (int)(DisplayRectangle.Y - 20)), Color.Gray);
@@ -391,9 +392,9 @@ namespace Client.MirObjects
             }
         }
 
-        public abstract void DrawBehindEffects();
+        public abstract void DrawBehindEffects(bool effectsEnabled);
 
-        public abstract void DrawEffects();
+        public abstract void DrawEffects(bool effectsEnabled);
 
     }
 

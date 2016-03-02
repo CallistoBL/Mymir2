@@ -29,7 +29,11 @@ namespace Client.MirGraphics
             Effect = new MLibrary(Settings.DataPath + "Effect"),
             MagicC = new MLibrary(Settings.DataPath + "MagicC"),
             GuildSkill = new MLibrary(Settings.DataPath + "GuildSkill");
-        
+
+        public static readonly MLibrary
+            Background = new MLibrary(Settings.DataPath + "Background");
+
+
 
         public static readonly MLibrary
             Dragon = new MLibrary(Settings.DataPath + "Dragon");
@@ -46,34 +50,32 @@ namespace Client.MirGraphics
         //Deco
         public static readonly MLibrary
             Deco = new MLibrary(Settings.DataPath + "Deco");
-
-        public static readonly MLibrary[] CArmours = new MLibrary[42],
-                                          CWeapons = new MLibrary[55],
-                                          CHair = new MLibrary[9],
-                                          CHumEffect = new MLibrary[3],
-                                          AArmours = new MLibrary[17],
-                                          AWeaponsL = new MLibrary[19],
-                                          AWeaponsR = new MLibrary[19],
-                                          AHair = new MLibrary[9],
-                                          AHumEffect = new MLibrary[3],
-                                          ARArmours = new MLibrary[17],
-                                          ARWeapons = new MLibrary[19],
-                                          ARWeaponsS = new MLibrary[19],
-                                          ARHair = new MLibrary[9],
-                                          ARHumEffect = new MLibrary[3],
-                                          Monsters = new MLibrary[403],
-                                          Mounts = new MLibrary[12],
-                                          NPCs = new MLibrary[200],
-                                          Fishing = new MLibrary[2],
-                                          Pets = new MLibrary[11],
-                                          Transform = new MLibrary[28],
-                                          TransformMounts = new MLibrary[28],
-                                          TransformEffect = new MLibrary[2],
-                                          TransformWeaponEffect = new MLibrary[1];
-
-        //Extra
-        public static readonly MLibrary
-            ExMagic_MagicEx5 = new MLibrary(Settings.ExtraDataPath + "WemadeMir3\\MagicEx5");
+        //callisto adjusted
+        public static readonly MLibrary[] CArmours = new MLibrary[99],
+                                          CWeapons = new MLibrary[99],
+                                          CWeaponEffect = new MLibrary[99], //callisto added weaponeffect
+                                          CHair = new MLibrary[15],
+                                          CHumEffect = new MLibrary[10],
+                                          AArmours = new MLibrary[25],
+                                          AWeaponsL = new MLibrary[25],
+                                          AWeaponsR = new MLibrary[25],
+                                          AHair = new MLibrary[15],
+                                          AHumEffect = new MLibrary[10],
+                                          ARArmours = new MLibrary[25],
+                                          ARWeapons = new MLibrary[25],
+                                          ARWeaponsS = new MLibrary[25],
+                                          ARHair = new MLibrary[15],
+                                          ARHumEffect = new MLibrary[10],
+                                          Monsters = new MLibrary[500],
+                                          Gates = new MLibrary[5],
+                                          Mounts = new MLibrary[25],
+                                          NPCs = new MLibrary[300],
+                                          Fishing = new MLibrary[5],
+                                          Pets = new MLibrary[25],
+                                          Transform = new MLibrary[35],
+                                          TransformMounts = new MLibrary[35],
+                                          TransformEffect = new MLibrary[5],
+                                          TransformWeaponEffect = new MLibrary[5];
 
         static Libraries()
         {
@@ -86,6 +88,9 @@ namespace Client.MirGraphics
 
             for (int i = 0; i < CWeapons.Length; i++)
                 CWeapons[i] = new MLibrary(Settings.CWeaponPath + i.ToString("00"));
+
+            for (int i = 0; i < CWeaponEffect.Length; i++)
+                CWeaponEffect[i] = new MLibrary(Settings.CWeaponEffectPath + i.ToString("00")); //callisto added weaponeffect
 
             for (int i = 0; i < CHumEffect.Length; i++)
                 CHumEffect[i] = new MLibrary(Settings.CHumEffectPath + i.ToString("00"));
@@ -125,6 +130,9 @@ namespace Client.MirGraphics
             //Other
             for (int i = 0; i < Monsters.Length; i++)
                 Monsters[i] = new MLibrary(Settings.MonsterPath + i.ToString("000"));
+
+            for (int i = 0; i < Gates.Length; i++)
+                Gates[i] = new MLibrary(Settings.GatePath + i.ToString("00"));
 
             for (int i = 0; i < NPCs.Length; i++)
                 NPCs[i] = new MLibrary(Settings.NPCPath + i.ToString("00"));
@@ -239,11 +247,11 @@ namespace Client.MirGraphics
 
         private static void LoadGameLibraries()
         {
-            Count = MapLibs.Length + Monsters.Length + NPCs.Length + CArmours.Length +
-                CHair.Length + CWeapons.Length + AArmours.Length + AHair.Length + AWeaponsL.Length + AWeaponsR.Length +
+            Count = MapLibs.Length + Monsters.Length + Gates.Length + NPCs.Length + CArmours.Length +
+                CHair.Length + CWeapons.Length + CWeaponEffect.Length + AArmours.Length + AHair.Length + AWeaponsL.Length + AWeaponsR.Length + //callisto added weapon effect
                 ARArmours.Length + ARHair.Length + ARWeapons.Length + ARWeaponsS.Length +
                 CHumEffect.Length + AHumEffect.Length + ARHumEffect.Length + Mounts.Length + Fishing.Length + Pets.Length +
-                Transform.Length + TransformMounts.Length + TransformEffect.Length + TransformWeaponEffect.Length + 16;
+                Transform.Length + TransformMounts.Length + TransformEffect.Length + TransformWeaponEffect.Length + 17;
 
             Dragon.Initialize();
             Progress++;
@@ -277,6 +285,9 @@ namespace Client.MirGraphics
             GuildSkill.Initialize();
             Progress++;
 
+            Background.Initialize();
+            Progress++;
+
             Deco.Initialize();
             Progress++;
 
@@ -302,6 +313,11 @@ namespace Client.MirGraphics
                 Progress++;
             }
 
+            for (int i = 0; i < Gates.Length; i++)
+            {
+                Gates[i].Initialize();
+                Progress++;
+            }
 
             for (int i = 0; i < NPCs.Length; i++)
             {
@@ -325,6 +341,12 @@ namespace Client.MirGraphics
             for (int i = 0; i < CWeapons.Length; i++)
             {
                 CWeapons[i].Initialize();
+                Progress++;
+            }
+
+            for (int i = 0; i < CWeaponEffect.Length; i++)//callisto added weaponeffect
+            {
+                CWeaponEffect[i].Initialize();
                 Progress++;
             }
 
@@ -775,9 +797,28 @@ namespace Client.MirGraphics
             mi.CleanTime = CMain.Time + Settings.CleanDelay;
         }
 
-        public bool VisiblePixel(int index, Point point, bool accuate)
+        public bool VisiblePixel(int index, Point point, bool accurate)
         {
-            return CheckImage(index) && _images[index].VisiblePixel(point, accuate);
+            if (!CheckImage(index)) return false;
+            bool output = false;
+            output = _images[index].VisiblePixel(point, accurate);
+            if (output) return true;
+            Point targetpoint;
+            if (!accurate) //allow for some extra space arround your mouse
+            {
+                int[] realRanges = new int[]{0,1,3,6,10,15,21};//do not edit this
+                //edit this to set how big you want the 'inaccuracy' to be (bear in mind bigger = takes more for your client to calculate)
+                //dont make it higher then 6 tho (or add more value sin realranges)
+                int range = 2;
+                
+                for (int i = 0; i < (8 * realRanges[range]); i++)
+                {
+                    targetpoint = Functions.PointMove(point, (MirDirection)(i % 8), (int)(i/8));
+                    output |= _images[index].VisiblePixel(targetpoint, accurate);
+                    if (output) return true;
+                }
+            }
+            return output;
         }
 
     }
@@ -854,7 +895,7 @@ namespace Client.MirGraphics
                 h = Height;// + (4 - Height % 4) % 4;
 
                 MaskImage = new Texture(DXManager.Device, w, h, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-                stream = Image.LockRectangle(0, LockFlags.Discard);
+                stream = MaskImage.LockRectangle(0, LockFlags.Discard);
 
                 decomp = DecompressImage(reader.ReadBytes(Length));
 
@@ -882,6 +923,17 @@ namespace Client.MirGraphics
         {
             if (p.X < 0 || p.Y < 0 || p.X >= Width || p.Y >= Height)
                 return false;
+
+            //if(!acurrate)
+            //{
+            //    Size trueSize = GetTrueSize();
+
+            //    int widthDiff = (Width - trueSize.Width) / 2;
+            //    int heightDiff = (Height - trueSize.Height ) /2 ;
+
+            //    if (p.X < widthDiff || p.X > Width + widthDiff || p.Y < heightDiff || p.Y > Height + heightDiff) return false;
+            //    return true;
+            //}
 
             int w = Width;// +(4 - Width % 4) % 4;
 

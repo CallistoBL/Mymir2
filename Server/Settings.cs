@@ -15,6 +15,7 @@ namespace Server
                             MapPath = @".\Maps\",
                             ExportPath = @".\Exports\",
                             GuildPath = @".\Guilds\",
+                            ConquestsPath = @".\Conquests\",
                             NPCPath = EnvirPath + @".\NPCs\",
                             GoodsPath = EnvirPath + @".\Goods\",
                             QuestPath = EnvirPath + @".\Quests\",
@@ -45,6 +46,7 @@ namespace Server
 	    public static string AwakeningDropFilename = "00Awakening";
         public static string StrongboxDropFilename = "00Strongbox";
         public static string BlackstoneDropFilename = "00Blackstone";
+        public static string MonsterNPCFilename = "00Monster";
 
         //Network
         public static string IPAddress = "127.0.0.1";
@@ -87,6 +89,7 @@ namespace Server
         public static float DropRate = 1F, ExpRate = 1F;
 
         public static int ItemTimeOut = 30,
+                          PlayerDiedItemTimeOut = 120,
                           DropRange = 4,
                           DropStackSize = 5,
                           PKDelay = 12;
@@ -298,6 +301,7 @@ namespace Server
             DropRate = Reader.ReadSingle("Game", "DropRate", DropRate);
             ExpRate = Reader.ReadSingle("Game", "ExpRate", ExpRate);
             ItemTimeOut = Reader.ReadInt32("Game", "ItemTimeOut", ItemTimeOut);
+            PlayerDiedItemTimeOut = Reader.ReadInt32("Game", "PlayerDiedItemTimeOut", PlayerDiedItemTimeOut);
             PetTimeOut = Reader.ReadInt64("Game", "PetTimeOut", PetTimeOut);
             PetSave = Reader.ReadBoolean("Game", "PetSave", PetSave);
             PKDelay = Reader.ReadInt32("Game", "PKDelay", PKDelay);
@@ -410,6 +414,14 @@ namespace Server
                 NewFile.Close();
             }
 
+            fileName = Path.Combine(Settings.NPCPath, MonsterNPCFilename + ".txt");
+
+            if (!File.Exists(fileName))
+            {
+                FileStream NewFile = File.Create(fileName);
+                NewFile.Close();
+            }
+
             LoadVersion();
             LoadEXP();
             LoadBaseStats();
@@ -468,6 +480,7 @@ namespace Server
             Reader.Write("Game", "DropRate", DropRate);
             Reader.Write("Game", "ExpRate", ExpRate);
             Reader.Write("Game", "ItemTimeOut", ItemTimeOut);
+            Reader.Write("Game", "PlayerDiedItemTimeOut", PlayerDiedItemTimeOut);
             Reader.Write("Game", "PetTimeOut", PetTimeOut);
             Reader.Write("Game", "PetSave", PetSave);
             Reader.Write("Game", "PKDelay", PKDelay);

@@ -10,7 +10,7 @@ namespace Server.MirObjects.Monsters
     public class TurtleKing : MonsterObject
     {
         public byte AttackRange = 3;
-        private byte _stage = 2;
+        private byte _stage = 7;
 
         protected internal TurtleKing(MonsterInfo info)
             : base(info)
@@ -26,14 +26,15 @@ namespace Server.MirObjects.Monsters
         {
             if (Dead) return;
             
-            if (MaxHP <= (MaxHP * 0.50))
+            if (MaxHP >= 7)
             {
-                byte stage = 1;
+                byte stage = (byte)(HP / (MaxHP / 2));
 
                 if (stage < _stage) SpawnSlaves();
                 _stage = stage;
             }
-            
+
+
             base.ProcessAI();
         }
         protected override void Attack()

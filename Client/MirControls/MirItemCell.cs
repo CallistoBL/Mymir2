@@ -612,9 +612,19 @@ namespace Client.MirControls
                 }
             }
 
+
             for (int i = 0; i < GameScene.User.Inventory.Length; i++)
             {
-                MirItemCell itemCell = i < GameScene.User.BeltIdx ? GameScene.Scene.BeltDialog.Grid[i] : GameScene.Scene.InventoryDialog.Grid[i - GameScene.User.BeltIdx];
+                MirItemCell itemCell = null;
+
+                if (Item.Info.Type == ItemType.Amulet)
+                {
+                    itemCell = i < GameScene.User.BeltIdx ? GameScene.Scene.BeltDialog.Grid[i] : GameScene.Scene.InventoryDialog.Grid[i - GameScene.User.BeltIdx];
+                }
+                else
+                {
+                    itemCell = i < (GameScene.User.Inventory.Length - GameScene.User.BeltIdx) ? GameScene.Scene.InventoryDialog.Grid[i] : GameScene.Scene.BeltDialog.Grid[i - GameScene.User.Inventory.Length];
+                }
 
                 if (itemCell.Item != null) continue;
 
@@ -879,6 +889,8 @@ namespace Client.MirControls
                                 Network.Enqueue(new C.MoveItem { Grid = GridType, From = NPCAwakeDialog.ItemsIdx[GameScene.SelectedCell.ItemSlot], To = NPCAwakeDialog.ItemsIdx[GameScene.SelectedCell.ItemSlot] });
                                 GameScene.SelectedCell.Locked = false;
                                 GameScene.SelectedCell.Item = null;
+                                NPCAwakeDialog.ItemsIdx[GameScene.SelectedCell.ItemSlot] = 0;
+
                                 if (GameScene.SelectedCell.ItemSlot == 0)
                                     GameScene.Scene.NPCAwakeDialog.ItemCell_Click();
                                 GameScene.SelectedCell = null;
@@ -1296,7 +1308,7 @@ namespace Client.MirControls
                                         if ((GameScene.SelectedCell.Item.Info.Type == ItemType.Weapon ||
                                             GameScene.SelectedCell.Item.Info.Type == ItemType.Helmet ||
                                             GameScene.SelectedCell.Item.Info.Type == ItemType.Armour) &&
-                                            GameScene.SelectedCell.Item.Info.Grade != ItemGrade.None &&
+                                            GameScene.SelectedCell.Item.Info.Grade != ItemGrade.Common && //callisto edited from None
                                             _itemSlot == 0)
                                         {
                                             if (Item == null)
@@ -1335,7 +1347,7 @@ namespace Client.MirControls
                                             case MirGridType.Inventory:
                                                 {
                                                     if (GameScene.SelectedCell.Item.Info.Type == ItemType.Awakening &&
-                                                        GameScene.SelectedCell.Item.Info.Shape < 200)
+                                                        GameScene.SelectedCell.Item.Info.Shape < 200 && NPCAwakeDialog.ItemsIdx[_itemSlot] == 0)
                                                     {
                                                         Item = GameScene.SelectedCell.Item;
                                                         GameScene.SelectedCell.Locked = true;
@@ -1418,6 +1430,12 @@ namespace Client.MirControls
                             if (Item != null)
                             {
                                 GameScene.Scene.ChatDialog.ReceiveChat("You cannot swap items.", ChatType.System);
+                                return;
+                            }
+
+                            if (GameScene.SelectedCell.Item.Info.Bind.HasFlag(BindMode.DontTrade))
+                            {
+                                GameScene.Scene.ChatDialog.ReceiveChat("You cannot mail this item.", ChatType.System);
                                 return;
                             }
 

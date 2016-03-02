@@ -14,7 +14,7 @@ namespace Server.MirObjects
 
         public IntelligentCreatureType petType = IntelligentCreatureType.None;
 
-        public ItemGrade GradeFilter = ItemGrade.None;
+        public ItemGrade GradeFilter = ItemGrade.Common; //callisto edited from None
 
         public IntelligentCreatureRules CreatureRules = new IntelligentCreatureRules();
         public IntelligentCreatureItemFilter ItemFilter = new IntelligentCreatureItemFilter();
@@ -772,7 +772,7 @@ namespace Server.MirObjects
             return 0;
         }
 
-        public override void ApplyPoison(Poison p, MapObject Caster = null, bool NoResist = false)
+        public override void ApplyPoison(Poison p, MapObject Caster = null, bool NoResist = false, bool ignoreDefence = true)
         {
             //FindTarget();
         }

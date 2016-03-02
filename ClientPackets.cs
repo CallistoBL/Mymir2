@@ -43,11 +43,14 @@ namespace ClientPackets
         {
             get { return (short)ClientPacketIds.KeepAlive; }
         }
+        public long Time;
         protected override void ReadPacket(BinaryReader reader)
         {
+            Time = reader.ReadInt64();
         }
         protected override void WritePacket(BinaryWriter writer)
         {
+            writer.Write(Time);
         }
     }
     public sealed class NewAccount: Packet
@@ -606,15 +609,18 @@ namespace ClientPackets
         }
 
         public uint ObjectID;
+        public bool Ranking = false;
 
         protected override void ReadPacket(BinaryReader reader)
         {
             ObjectID = reader.ReadUInt32();
+            Ranking = reader.ReadBoolean();
         }
 
         protected override void WritePacket(BinaryWriter writer)
         {
             writer.Write(ObjectID);
+            writer.Write(Ranking);
         }
     }
     public sealed class ChangeAMode : Packet
@@ -2075,6 +2081,37 @@ public sealed class AwakeningNeedMaterials : Packet
             writer.Write(Image);
             writer.Write(ImageSize);
             writer.Write(ImageChunk);
+        }
+    }
+    public sealed class GetRanking : Packet
+    {
+        public override short Index { get { return (short)ClientPacketIds.GetRanking; } }
+        public byte RankIndex;
+
+        protected override void ReadPacket(BinaryReader reader)
+        {
+            RankIndex = reader.ReadByte();
+        }
+
+        protected override void WritePacket(BinaryWriter writer)
+        {
+            writer.Write(RankIndex);
+        }
+    }
+
+    public sealed class Opendoor : Packet
+    {
+        public override short Index { get { return (short)ClientPacketIds.Opendoor; } }
+        public byte DoorIndex;
+
+        protected override void ReadPacket(BinaryReader reader)
+        {
+            DoorIndex = reader.ReadByte();
+        }
+
+        protected override void WritePacket(BinaryWriter writer)
+        {
+            writer.Write(DoorIndex);
         }
     }
 }

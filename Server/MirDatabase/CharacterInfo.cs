@@ -95,10 +95,10 @@ namespace Server.MirDatabase
         public MountInfo Mount;
 
         public Dictionary<int, int> GSpurchases = new Dictionary<int, int>();
+        public int[] Rank = new int[2];//dont save this in db!(and dont send it to clients :p)
 
         public CharacterInfo()
         {
-
         }
 
         public CharacterInfo(ClientPackets.NewCharacter p, MirConnection c)
@@ -197,7 +197,11 @@ namespace Server.MirDatabase
                 if (magic.Info == null) continue;
                 Magics.Add(magic);
             }
-
+            //reset all magic cooldowns on char loading < stops ppl from having none working skills after a server crash
+            for (int i = 0; i < Magics.Count; i++)
+            {
+                Magics[i].CastTime = 0;
+            }
 
             if (Envir.LoadVersion < 2) return;
 
@@ -716,20 +720,200 @@ namespace Server.MirDatabase
         public string Info1 = "Unable to produce BlackStones.";
         public string Info2 = "Can produce Pearls, used to buy Creature items.";
 
-        static IntelligentCreatureInfo()
+        #region Changes to intelligent creatures //callisto
+        static IntelligentCreatureInfo() //callisto pet changes
         {
-            BabyPig = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.BabyPig, Icon = 500, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 3, MinimalFullness = 4000, Info = "Can pickup items (3x3 semi-auto)." };
-            Chick = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.Chick, Icon = 501, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 7, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 7, CanProduceBlackStone = true, Info = "Can pickup items (7x7 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
-            Kitten = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.Kitten, Icon = 502, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 3, MinimalFullness = 6000, Info = "Can pickup items (5x5 semi-auto)." };
-            BabySkeleton = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.BabySkeleton, Icon = 503, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 7, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 7, CanProduceBlackStone = true, Info = "Can pickup items (7x7 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
-            Baekdon = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.Baekdon, Icon = 504, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 7, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 7, CanProduceBlackStone = true, Info = "Can pickup items (7x7 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
-            Wimaen = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.Wimaen, Icon = 505, MousePickupEnabled = true, MousePickupRange = 7, AutoPickupEnabled = true, AutoPickupRange = 5, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 5, MinimalFullness = 5000, Info = "Can pickup items (5x5 auto/semi-auto, 7x7 mouse)." };
-            BlackKitten = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.BlackKitten, Icon = 506, MousePickupEnabled = true, MousePickupRange = 7, AutoPickupEnabled = true, AutoPickupRange = 5, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 5, MinimalFullness = 5000, Info = "Can pickup items (5x5 auto/semi-auto, 7x7 mouse)." };
-            BabyDragon = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.BabyDragon, Icon = 507, MousePickupEnabled = true, MousePickupRange = 7, AutoPickupEnabled = true, AutoPickupRange = 5, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 5, MinimalFullness = 7000, Info = "Can pickup items (5x5 auto/semi-auto, 7x7 mouse)." };
-            OlympicFlame = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.OlympicFlame, Icon = 508, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 11, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 11, CanProduceBlackStone = true, Info = "Can pickup items (11x11 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
-            BabySnowMan = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.BabySnowMan, Icon = 509, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 11, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 11, CanProduceBlackStone = true, Info = "Can pickup items (11x11 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
-            Frog = new IntelligentCreatureInfo { PetType = IntelligentCreatureType.Frog, Icon = 510, MousePickupEnabled = true, MousePickupRange = 11, AutoPickupEnabled = true, AutoPickupRange = 11, SemiAutoPickupEnabled = true, SemiAutoPickupRange = 11, CanProduceBlackStone = true, Info = "Can pickup items (11x11 auto/semi-auto, 11x11 mouse).", Info1 = "Can produce BlackStones." };
+            /* basic one    
+ * (name) = new IntelligentCreatureInfo
+ * 
+ * {
+ *   PetType = IntelligentCreatureType.(name),
+ *   Icon = 500-510,
+ *   MousePickupEnabled = False,
+ *   MousePickupRange = 0,
+ *   AutoPickupEnabled = False,
+ *   AutoPickupRange = 0,
+ *   SemiAutoPickupEnabled = False,
+ *   SemiAutoPickupRange = 0,
+ *   CanProduceBlackStone = False,
+ *   Info = "",
+ *   Info1 = "Unable to produce BlackStones.",
+ *   Info2 = "Can produce Pearls, used to buy Creature items." 
+ * }
+ * */
+
+            BabyPig = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.BabyPig,
+                Icon = 500,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 3,
+                MinimalFullness = 1000,
+                Info = "Can pickup items (3x3 semi-auto (A))."
+            };
+
+
+            Chick = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.Chick,
+                Icon = 501,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 5,
+                MinimalFullness = 2000,
+                Info = "Can pickup items (5x5 semi-auto (A))."
+            };
+
+
+            Kitten = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.Kitten,
+                Icon = 502,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 7,
+                MousePickupEnabled = true,
+                MousePickupRange = 3,
+                MinimalFullness = 3000,
+                Info = "Can pickup items (7x7 semi-auto (A), 3x3 mouse (X))."
+            };
+
+            BlackKitten = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.BlackKitten,
+                Icon = 506,
+                MousePickupEnabled = true,
+                MousePickupRange = 5,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 7,
+                MinimalFullness = 4000,
+                Info = "Can pickup items (7x7 semi-auto (A), 7x7 mouse (X))."
+            };
+
+            Frog = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.Frog,
+                Icon = 510,
+                MousePickupEnabled = true,
+                MousePickupRange = 7,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 3,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 7,
+                MinimalFullness = 5000,
+                Info = "Can pickup items (7x7 semi-auto(A), 7x7 mouse (X), 3x3 auto).",
+            };
+
+            BabySkeleton = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.BabySkeleton,
+                Icon = 503,
+                MousePickupEnabled = true,
+                MousePickupRange = 7,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 5,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 9,
+                CanProduceBlackStone = true,
+                MinimalFullness = 5000,
+                Info = "Can pickup items (9x9 semi-auto (A), 7x7 mouse (X), 5x5 auto).",
+                Info1 = "Can produce BlackStones."
+            };
+
+
+            Baekdon = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.Baekdon,
+                Icon = 504,
+                MousePickupEnabled = true,
+                MousePickupRange = 9,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 5,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 9,
+                CanProduceBlackStone = true,
+                MinimalFullness = 6000,
+                Info = "Can pickup items (9x9 semi-auto (A), 9x9 mouse (X), 5x5 auto).",
+                Info1 = "Can produce BlackStones."
+            };
+
+
+            Wimaen = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.Wimaen,
+                Icon = 505,
+                MousePickupEnabled = true,
+                MousePickupRange = 9,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 7,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 11,
+                CanProduceBlackStone = true,
+                MinimalFullness = 6000,
+                Info = "Can pickup items (11x11 semi-auto (A), 9x9 mouse (X), 7x7 auto).",
+                Info1 = "Can produce BlackStones."
+            };
+
+            BabyDragon = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.BabyDragon,
+                Icon = 507,
+                MousePickupEnabled = true,
+                MousePickupRange = 9,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 9,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 11,
+                CanProduceBlackStone = true,
+                MinimalFullness = 7000,
+                Info = "Can pickup items (11x11 semi-auto (A), 9x9 mouse (X), 9x9 auto).",
+                Info1 = "Can produce BlackStones."
+            };
+
+
+            OlympicFlame = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.OlympicFlame,
+                Icon = 508,
+                MousePickupEnabled = true,
+                MousePickupRange = 11,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 9,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 11,
+                CanProduceBlackStone = true,
+                MinimalFullness = 7000,
+                Info = "Can pickup items (11x11 semi-auto (A), 11x11 mouse (X), 9x9 auto).",
+                Info1 = "Can produce BlackStones."
+            };
+
+
+            BabySnowMan = new IntelligentCreatureInfo
+
+            {
+                PetType = IntelligentCreatureType.BabySnowMan,
+                Icon = 509,
+                MousePickupEnabled = true,
+                MousePickupRange = 11,
+                AutoPickupEnabled = true,
+                AutoPickupRange = 11,
+                SemiAutoPickupEnabled = true,
+                SemiAutoPickupRange = 11,
+                CanProduceBlackStone = true,
+                MinimalFullness = 7000,
+                Info = "Can pickup items (11x11 semi-auto (A), 11x11 mouse (X), 11x11 auto).",
+                Info1 = "Can produce BlackStones."
+            };
         }
+#endregion
 
         public IntelligentCreatureInfo()
         {

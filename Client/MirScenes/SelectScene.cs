@@ -79,7 +79,7 @@ namespace Client.MirScenes
                     Library = Libraries.Title,
                     Location = new Point(230, 568),
                     Parent = Background,
-                    PressedIndex = 345
+                    PressedIndex = 345,
                 };
             NewCharacterButton.Click += (o, e) => _character = new NewCharacterDialog { Parent = this };
 
@@ -415,7 +415,8 @@ namespace Client.MirScenes
             if (p.Resolution < Settings.Resolution || Settings.Resolution == 0) Settings.Resolution = p.Resolution;
 
             if (p.Resolution < 1024 || Settings.Resolution < 1024) Settings.Resolution = 800;
-            else if (p.Resolution < 1366 || Settings.Resolution < 1366) Settings.Resolution = 1024;
+            else if (p.Resolution < 1366 || Settings.Resolution < 1280) Settings.Resolution = 1024;
+            else if (p.Resolution < 1366 || Settings.Resolution < 1366) Settings.Resolution = 1280;//not adding an extra setting for 1280 on server cause well it just depends on the aspect ratio of your screen
             else if (p.Resolution >= 1366 && Settings.Resolution >= 1366) Settings.Resolution = 1366;
 
             switch (p.Result)
@@ -435,6 +436,8 @@ namespace Client.MirScenes
                 case 4:
                     if (Settings.Resolution == 1024)
                         CMain.SetResolution(1024, 768);
+                    else if (Settings.Resolution == 1280)
+                        CMain.SetResolution(1280, 800);
                     else if (Settings.Resolution == 1366)
                         CMain.SetResolution(1366, 768);
                     ActiveScene = new GameScene();

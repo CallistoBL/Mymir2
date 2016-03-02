@@ -388,7 +388,7 @@ namespace LibraryEditor
 
                 if (w == 0 || h == 0)
                     return;
-
+                if ((w < 2) || (h < 2)) return;
                 Image = new Bitmap(w, h);
 
                 BitmapData data = Image.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadWrite,
@@ -418,16 +418,24 @@ namespace LibraryEditor
                         return;
                     }
 
-                    MaskImage = new Bitmap(w, h);
+                    try
+                    {
+                        MaskImage = new Bitmap(w, h);
 
-                    data = MaskImage.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadWrite,
-                                                     PixelFormat.Format32bppArgb);
+                        data = MaskImage.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadWrite,
+                                                         PixelFormat.Format32bppArgb);
 
-                    dest = Decompress(MaskFBytes);
+                        dest = Decompress(MaskFBytes);
 
-                    Marshal.Copy(dest, 0, data.Scan0, dest.Length);
+                        Marshal.Copy(dest, 0, data.Scan0, dest.Length);
 
-                    Image.UnlockBits(data);
+                        MaskImage.UnlockBits(data);
+                    }
+                    catch(Exception ex)
+                    {
+                        File.AppendAllText(@".\Error.txt",
+                                       string.Format("[{0}] {1}{2}", DateTime.Now, ex, Environment.NewLine));
+                    }
                 }
 
                 dest = null;

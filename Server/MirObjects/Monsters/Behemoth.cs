@@ -104,7 +104,6 @@ namespace Server.MirObjects.Monsters
 
                         DelayedAction action = new DelayedAction(DelayedType.Damage, Envir.Time + delay, Target, damage, DefenceType.MACAgility);
                         ActionList.Add(action);
-                        Target.ApplyPoison(new Poison { Owner = this, Duration = 5, PType = PoisonType.Stun, TickSpeed = 1000 }, this);
                     }
                 }
             }
@@ -123,9 +122,9 @@ namespace Server.MirObjects.Monsters
 
             Target.Attacked(this, damage, DefenceType.ACAgility);
 
-            if (Envir.Random.Next(4) == 0)
+            if (Envir.Random.Next(8) == 0)
             {
-                Target.ApplyPoison(new Poison { Owner = this, Duration = 7, PType = PoisonType.Stun, TickSpeed = 1000 }, this);
+                Target.ApplyPoison(new Poison { Owner = this, Duration = 3, PType = PoisonType.Stun, TickSpeed = 1000 }, this);
             }
         }
 

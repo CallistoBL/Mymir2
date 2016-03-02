@@ -39,6 +39,7 @@ namespace Client
         public static int FPS;
 
         public static bool Shift, Alt, Ctrl, Tilde;
+        public static KeyBindSettings InputKeys = new KeyBindSettings();
 
         public CMain()
         {
@@ -166,9 +167,23 @@ namespace Client
             if (e.KeyCode == Keys.Oem8)
                 CMain.Tilde = false;
 
-            if (e.KeyCode == Keys.PrintScreen)
+            foreach (KeyBind KeyCheck in CMain.InputKeys.Keylist)
+            {
+                if (KeyCheck.function != KeybindOptions.Screenshot) continue;
+                if (KeyCheck.Key != e.KeyCode)
+                    continue;
+                if ((KeyCheck.RequireAlt != 2) && (KeyCheck.RequireAlt != (Alt ? 1 : 0)))
+                    continue;
+                if ((KeyCheck.RequireShift != 2) && (KeyCheck.RequireShift != (Shift ? 1 : 0)))
+                    continue;
+                if ((KeyCheck.RequireCtrl != 2) && (KeyCheck.RequireCtrl != (Ctrl ? 1 : 0)))
+                    continue;
+                if ((KeyCheck.RequireTilde != 2) && (KeyCheck.RequireTilde != (Tilde ? 1 : 0)))
+                    continue;
                 Program.Form.CreateScreenShot();
+                break;
 
+            }
             try
             {
                 if (MirScene.ActiveScene != null)
@@ -378,11 +393,32 @@ namespace Client
                 text = string.Format("FPS: {0}", FPS);
 
                 if (MirControl.MouseControl is MapControl)
+                {
                     text += string.Format(", Co Ords: {0}", MapControl.MapLocation);
 
-                if (MirScene.ActiveScene is GameScene)
-                    text += string.Format(", Objects: {0}", MapControl.Objects.Count);
+                    //text += "\r\n";
 
+                    //var cell = GameScene.Scene.MapControl.M2CellInfo[MapControl.MapLocation.X, MapControl.MapLocation.Y];
+
+                    //if (cell != null)
+                    //{
+                    //    text += string.Format("BackImage : {0}. BackIndex : {1}. MiddleImage : {2}. MiddleIndex {3}. FrontImage : {4}. FrontIndex : {5}", cell.BackImage, cell.BackIndex, cell.MiddleImage, cell.MiddleIndex, cell.FrontImage, cell.FrontIndex);
+                    //}
+                }
+
+                if (MirScene.ActiveScene is GameScene)
+                {
+                    //text += "\r\n";
+                    text += string.Format(", Objects: {0}", MapControl.Objects.Count);
+                }
+                if (MirObjects.MapObject.MouseObject != null)
+                {
+                    text += string.Format(", Target: {0}", MirObjects.MapObject.MouseObject.Name);
+                }
+                else
+                {
+                    text += string.Format(", Target: none");
+                }
             }
             else
             {
